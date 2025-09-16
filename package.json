@@ -4,8 +4,8 @@
   "description": "Fundamental of React",
   "source": "index.html",
   "scripts": {
-    "start":"parcel index.html",
-    "build" :"parcel build",
+    "start": "parcel index.html",
+    "build": "parcel build",
     "test": "jest"
   },
   "repository": {
@@ -25,12 +25,10 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
-  ,
-  "browserlist":[
-
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.2"
+  },
+  "browserlist": [
     "last 2 versions"
-    
   ]
 }
