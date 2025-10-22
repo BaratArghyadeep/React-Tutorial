@@ -4,35 +4,60 @@ class UserClass extends React.Component{
     constructor(props) {
         super(props);
 
-        console.log("child constructor called");
+        console.log(this.props.name + " child constructor called");
         
         this.state = {
-            count : 0,
+            userInfo :{
+                name : "Dummy",
+                location: "Default",
+           
+
+            },
         }
 
     }
 
-    componentDidMount()
+    async componentDidMount()
     {
-        console.log("Child component did mount");
+        const data = await fetch("https://api.github.com/users/BaratArghyadeep");
+        const json = await data.json();
+        //console.log(this.props.name+ " Child component did mount");
+
+        this.setState({
+            userInfo : json,
+        })
+
+       this.timer =  setInterval(() => {
+
+            console.log("Hello Arghyadeep");
+            
+        }, 1000);
+    }
+
+    componentDidUpdate()
+    {
+        console.log("Component did update");
+    }
+
+    componentWillUnmount()
+    {
+        clearInterval(this.timer);
+        console.log("Compoenent will unmount");
+
     }
     
     render()
     {
-        const {name , place} = this.props;
-        const {count} = this.state;
+        //console.log(this.props.name+ " Child component render");
+        const {name , location , avatar_url} = this.state.userInfo;
+        
         return(
 
             <div className="user-card">
-                <h1>Count : {count}</h1>
-                <button onClick={() => {
-                    // Never update state variable directly 
-                    this.setState({
-                        count: this.state.count + 1
-                    })
-                }}> Increase Count</button>
+                <img src= {avatar_url}/>
+               
                 <h2>Name: {name}</h2>
-                <h2>Location: {place}</h2>
+                <h2>Location: {location}</h2>
                 <h2>Contact : barat.arghyadeep01@gmail.com</h2>
     
             </div>
@@ -42,3 +67,21 @@ class UserClass extends React.Component{
 }
 
 export default UserClass;
+
+/****
+ * 
+ * -- Mounting -----
+ * 
+ * Constructor (dummy)
+ * Render (dummy)
+ *      <HTML Dummy>
+ * Component Did mount
+ *      <API Call>
+ *      <this.setState> --> State Variable is updated 
+ * 
+ * -- UPDATE
+ * 
+ *      render (Api date)
+ *      <HTML (new api data)>
+ *      Component did update 
+ */
